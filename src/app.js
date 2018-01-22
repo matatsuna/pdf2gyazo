@@ -3,8 +3,11 @@ import dragDrop from 'drag-drop';
 document.addEventListener("DOMContentLoaded", () => {
     dragDrop('#dropTarget', (files) => {
         files.forEach((file) => {
-            console.log(file.type)
-
+            console.log(file.type);
+            if (file.type !== 'application/pdf') {
+                console.error('pdfファイルではありません。');
+                return;
+            }
             const reader = new FileReader();
             reader.addEventListener('load', (e) => {
                 const arr = new Uint8Array(e.target.result);
