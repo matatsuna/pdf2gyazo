@@ -44,10 +44,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let elDrop = document.getElementById('dropTarget');
     elDrop.addEventListener('dragover', (event) => {
+        elDrop.style.backgroundColor = "rgba(127, 127, 127, 0.2)";
         event.preventDefault();
     });
 
     elDrop.addEventListener('drop', function (event) {
+        elDrop.style.backgroundColor = "rgba(255, 255, 255, 0.6)";
+        event.preventDefault();
+    });
+    elDrop.addEventListener('dragleave', function (event) {
+        elDrop.style.backgroundColor = "rgba(255, 255, 255, 0.6)";
         event.preventDefault();
     });
 

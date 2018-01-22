@@ -2,14 +2,70 @@
 <meta charset="utf-8">
 
 <head>
+    <title>PDF2Gyazo - PDFからGyazoに変換！</title>
+    <meta name="keywords" content="PDF変換,Gyazo,Webサービス">
+    <meta name="description" content="PDF2Gyazoは、PDFからGyazoに変換するWebアプリケーションです。">
+    <meta property="og:title" content="PDF2Gyazo - PDFからGyazoに変換！" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="PDF2Gyazoは、PDFからGyazoに変換するWebアプリケーションです。" />
+    <meta property="og:url" content="http://mojirage.com" />
+    <meta property="og:site_name" content="PDF2Gyazo - PDFからGyazoに変換！" />
+    <meta property="og:image" content="http://mojirage.com/img/list.png" />
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <!-- <link rel="icon" href="./favicon.ico" sizes="32x32"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 
     <script src="./build/main.js"></script>
     <script src="./build/0.js"></script>
+
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        #dropTarget {
+            height: 1000px;
+            width: 100%;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .dropText {
+            height: 10%;
+            width: 100%;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+        }
+    </style>
+    <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="#" class="brand-logo">PDF2Gyazo</a>
+        </div>
+    </nav>
+
 </head>
 
-<body>
-    <div id="dropTarget" width="500px" height="500px">
-        <p>ここにドラッグ&ドロップ</p>
+<body class="light-blue lighten-3">
+    <div class="center container">
+        <h3 class="grey-text text-lighten-5">PDF2Gyazoは、PDFからGyazoに変換するWebアプリケーションです。</h3>
+        <div id="dropTarget">
+            <p class="flow-text dropText">ここにPDFをドラッグ&ドロップ</p>
+        </div>
+        <div class="flow-text">
+            <span>ローカルのjsで処理するので、サーバーにPDFファイルを送信しません。</span>
+            <span>ブラウザのGyazoに保存されるので、自身以外の人が</span>
+        </div>
     </div>
 </body>
 
