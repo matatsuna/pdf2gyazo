@@ -29,6 +29,9 @@
   },
   "dependencies": {
     "drag-drop": "^2.13.2",
+    "form-data": "^2.3.1",
+    "gyazo-browser-upload": "^1.0.0",
+    "node-fetch": "^1.7.3",
     "pdfjs-dist": "^2.0.281"
   }
 }

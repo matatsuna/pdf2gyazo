@@ -1,5 +1,14 @@
 import pdfjsLib from 'pdfjs-dist';
 import dragDrop from 'drag-drop';
+import postToGyazo from './postToGyazo';
+// import upload from 'gyazo-browser-upload';
+
+const clientId = '6ceabccbec3aac2dabf990b7ee9549b0cb00d0e280463ade8024d5870efc31c9';
+const options = { clientId: clientId };
+
+// http://mozilla.github.io/pdf.js/examples/index.html#interactive-examples
+// https://github.com/mozilla/pdf.js/blob/master/examples/node/pdf2png/pdf2png.js
+
 document.addEventListener("DOMContentLoaded", () => {
     dragDrop('#dropTarget', (files) => {
         files.forEach((file) => {
@@ -21,12 +30,32 @@ document.addEventListener("DOMContentLoaded", () => {
                         canvas.height = viewport.height;
                         canvas.width = viewport.width;
 
-                        var renderContext = {
+                        let renderContext = {
                             canvasContext: context,
                             viewport: viewport
                         };
                         page.render(renderContext).then(() => {
-                            var image = canvas.toDataURL();
+                            let image = canvas.toDataURL();
+                            let data = {
+                                imageData: image,
+                                title: "PDF2Gyazo",
+                                url: "http://127.0.0.1:8080/",
+                            };
+                            postToGyazo(data);
+                            let childWindow = window.open('about:blank');
+                            // upload(image, options)
+                            //     .then((info) => {
+                            //         console.log(info);
+                            //         childWindow.location.href = info.url;
+                            //         childWindow = null;
+
+                            //         // info.url // URL of the image 
+                            //         // info.id // ID of the image 
+                            //     }).catch((e) => {
+                            //         console.log(e);
+                            //         childWindow.close();
+                            //         childWindow = null;
+                            //     });
                             console.log(image);
                         });
                     });
