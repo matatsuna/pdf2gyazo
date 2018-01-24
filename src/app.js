@@ -1,7 +1,6 @@
 import pdfjsLib from 'pdfjs-dist';
 import dragDrop from 'drag-drop';
 import postToGyazo from './postToGyazo';
-// import upload from 'gyazo-browser-upload';
 
 const clientId = '6ceabccbec3aac2dabf990b7ee9549b0cb00d0e280463ade8024d5870efc31c9';
 const options = { clientId: clientId };
@@ -10,6 +9,7 @@ const options = { clientId: clientId };
 // https://github.com/mozilla/pdf.js/blob/master/examples/node/pdf2png/pdf2png.js
 
 document.addEventListener("DOMContentLoaded", () => {
+    let table = document.getElementById('imageTable');
     dragDrop('#dropTarget', (files) => {
         files.forEach((file) => {
             console.log(file.type);
@@ -35,28 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
                             viewport: viewport
                         };
                         page.render(renderContext).then(() => {
-                            let image = canvas.toDataURL();
+                            let image = canvas.toDataURL("image/jpeg");
                             let data = {
                                 imageData: image,
-                                title: "PDF2Gyazo",
-                                url: "http://127.0.0.1:8080/",
+                                title: "PDF2Gyazo"
                             };
-                            postToGyazo(data);
-                            let childWindow = window.open('about:blank');
-                            // upload(image, options)
-                            //     .then((info) => {
-                            //         console.log(info);
-                            //         childWindow.location.href = info.url;
-                            //         childWindow = null;
+                            postToGyazo(data).then((url) => {
+                                addImage(image, url);
+                            });
 
-                            //         // info.url // URL of the image 
-                            //         // info.id // ID of the image 
-                            //     }).catch((e) => {
-                            //         console.log(e);
-                            //         childWindow.close();
-                            //         childWindow = null;
-                            //     });
-                            console.log(image);
                         });
                     });
                 }).catch((reason) => {
@@ -85,5 +72,21 @@ document.addEventListener("DOMContentLoaded", () => {
         elDrop.style.backgroundColor = "rgba(255, 255, 255, 0.6)";
         event.preventDefault();
     });
-
+    function addImage(image, url) {
+        let tr = document.createElement('tr');
+        let imgTd = document.createElement('td');
+        let urlTd = document.createElement('td');
+        let img = document.createElement('img');
+        img.setAttribute('src', image);
+        imgTd.appendChild(img);
+        let a = document.createElement('a');
+        a.setAttribute('href', url);
+        a.setAttribute('target', '_blank');
+        a.innerText = 'Gyazoへ飛ぶ';
+        urlTd.appendChild(a);
+        tr.appendChild(imgTd);
+        tr.appendChild(urlTd);
+        table.appendChild(tr);
+    }
 });
+

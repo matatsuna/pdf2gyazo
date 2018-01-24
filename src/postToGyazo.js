@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import FormData from 'form-data';
 
 
@@ -11,39 +10,28 @@ const errorAlert = (status, message) => {
     window.alert('Status: ' + status + '\n Error: ' + message)
 }
 
-export default async (data) => {
-    var formdata = new FormData();
-    formdata.append('client_id', clientId);
-    formdata.append('image_url', data.imageData);
-    formdata.append('title', data.title);
-    formdata.append('referer_url', data.url);
-    formdata.append('scale', data.scale || '');
-    formdata.append('desc', data.desc ? data.desc.replace(/\t/, ' ').replace(/(^\s+| +$)/gm, '') : '');
-    const response = await window.fetch(apiEndpoint, {
-        method: 'POST',
-        mode: 'cors',
-        body: formdata
+function postToGyazo(data) {
+    return new Promise((resolve) => {
+        var formdata = new FormData();
+        formdata.append('client_id', clientId);
+        formdata.append('image_url', data.imageData);
+        formdata.append('title', data.title);
+        formdata.append('referer_url', data.imageData);
+        formdata.append('scale', data.scale || '');
+        formdata.append('desc', data.desc ? data.desc.replace(/\t/, ' ').replace(/(^\s+| +$)/gm, '') : '');
+        window.fetch(apiEndpoint, {
+            method: 'POST',
+            mode: 'cors',
+            body: formdata
+        }).then((response) => {
+            if (response.status >= 400) {
+                errorAlert(response.status, response.statusText)
+            }
+            return response.json()
+        }).then((_data) => {
+            resolve(_data.get_image_url)
+        });
     });
-
-    if (response.status >= 400) {
-        errorAlert(response.status, response.statusText)
-    }
-
-    const _data = await response.json()
-    // Use pure XHR for get XHR.responseURL
-    const xhr = new window.XMLHttpRequest()
-
-    xhr.open('GET', _data.get_image_url)
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState !== 4) return
-        if (xhr.status >= 400) {
-
-            errorAlert(xhr.status, xhr.statusText)
-        }
-        if (xhr.responseURL) {
-            console.log(xhr.responseURL);
-        }
-    }
-    xhr.send();
-
 }
+
+export default postToGyazo;
