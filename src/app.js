@@ -22,30 +22,43 @@ document.addEventListener("DOMContentLoaded", () => {
                 const arr = new Uint8Array(e.target.result);
                 pdfjsLib.getDocument(arr).then((pdfDocument) => {
                     console.log('# PDF document loaded.');
+                    console.log(pdfDocument.numPages);
+                    let pdfDocumentArray = [];
+                    for (let i = 1; i <= pdfDocument.numPages; i++) {
+                        pdfDocumentArray.push(new Promise((resolve) => {
 
-                    pdfDocument.getPage(1).then((page) => {
-                        const viewport = page.getViewport(1.0);
-                        const canvas = document.createElement('canvas');
-                        const context = canvas.getContext('2d');
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
+                            pdfDocument.getPage(i).then((page) => {
+                                const viewport = page.getViewport(1.0);
+                                const canvas = document.createElement('canvas');
+                                const context = canvas.getContext('2d');
+                                canvas.height = viewport.height;
+                                canvas.width = viewport.width;
 
-                        let renderContext = {
-                            canvasContext: context,
-                            viewport: viewport
-                        };
-                        page.render(renderContext).then(() => {
-                            let image = canvas.toDataURL("image/jpeg");
-                            let data = {
-                                imageData: image,
-                                title: "PDF2Gyazo"
-                            };
-                            postToGyazo(data).then((url) => {
-                                addImage(image, url);
+                                let renderContext = {
+                                    canvasContext: context,
+                                    viewport: viewport
+                                };
+                                page.render(renderContext).then(() => {
+                                    let image = canvas.toDataURL("image/jpeg");
+                                    let data = {
+                                        imageData: image,
+                                        title: "PDF2Gyazo"
+                                    };
+                                    postToGyazo(data).then((url) => {
+                                        resolve({ image: image, url: url });
+                                    });
+
+                                });
                             });
 
+                        }));
+                    }
+                    Promise.all(pdfDocumentArray).then((res) => {
+                        res.map((page) => {
+                            addImage(page.image, page.url);
                         });
                     });
+
                 }).catch((reason) => {
                     console.log(reason);
                 });
@@ -89,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tr.appendChild(imgTd);
         tr.appendChild(urlTd);
         table.appendChild(tr);
+        elDrop.remove();
     }
 });
 
