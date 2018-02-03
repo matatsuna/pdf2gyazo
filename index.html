@@ -22,7 +22,7 @@
 
     <script src="./build/main.js"></script>
     <script src="./build/0.js"></script>
-
+    <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
     <style>
         body {
             width: 100%;
@@ -59,13 +59,29 @@
 
 <body class="light-blue lighten-3">
     <div class="center container">
-        <h3 class="grey-text text-lighten-5">PDF2Gyazoは、PDFからGyazoに変換するWebアプリケーションです。</h3>
+        <h2 class="grey-text text-lighten-5">PDFからGyazoに変換</h2>
+        <div class="imgTable">
+            <!-- <div class="row">
+                
+                            </div> -->
+            <table id="imageTable">
+            </table>
+        </div>
         <div id="dropTarget">
             <p class="flow-text dropText">ここにPDFをドラッグ&ドロップ</p>
         </div>
-        <div class="flow-text">
-            <span>ローカルのjsで処理するので、サーバーにPDFファイルを送信しません。</span>
-            <span>ブラウザのGyazoに保存されるので、自身以外の人が</span>
+        <div class="flow-text blue-grey-text text-darken-4">
+            <h3>
+                特徴
+            </h3>
+            <p>jsで処理するため、サーバーにPDFファイルを送信しません。</p>
+            <p>ブラウザのGyazoアカウントに保存されます。</p>
+            <hr>
+            <h3>
+                今後のアップデート
+            </h3>
+            <p>ファイル選択ダイアログの対応</p>
+            <p>リンクのタイムアウト対応(現在30秒)</p>
         </div>
         <div class="imgTable">
             <!-- <div class="row">
@@ -75,6 +91,32 @@
             </table>
         </div>
     </div>
+    <footer class="page-footer light-blue lighten-1">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Contact</h5>
+                    <p class="white-text">matatsuna(at)gmail.com</p>
+                    <p class="white-text">@matatsuna</p>
+                    <h1></h1>
+                    <p>
+                        <a class="twitter-share-button" href="https://twitter.com/share" data-size="large" data-text="PDFからGyazoに変換！" data-url="https://pdf2gyazo.azurewebsites.net/">
+                            Tweet
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Yasutsuna Matayoshi
+                <br> Made by
+                <a class="white-text text-lighten-4" href="http://materializecss.com">Materialize</a>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>

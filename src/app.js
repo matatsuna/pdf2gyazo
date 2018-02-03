@@ -82,8 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
         let a = document.createElement('a');
         a.setAttribute('href', url);
         a.setAttribute('target', '_blank');
-        a.innerText = 'Gyazoへ飛ぶ';
-        urlTd.appendChild(a);
+        let h4 = document.createElement('h4');
+        a.innerText = 'Gyazoで開く';
+        h4.appendChild(a);
+        urlTd.appendChild(h4);
         tr.appendChild(imgTd);
         tr.appendChild(urlTd);
         table.appendChild(tr);
