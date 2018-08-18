@@ -3,14 +3,14 @@
 <meta name="referrer" content="no-referrer">
 
 <head>
-    <title>PDF2Gyazo - PDFからGyazoに変換！</title>
+    <title>PDF2Gyazo - PDFから画像,Gyazoに変換！</title>
     <meta name="keywords" content="PDF変換,Gyazo,Webサービス">
-    <meta name="description" content="PDF2Gyazoは、PDFからGyazoに変換するWebアプリケーションです。">
-    <meta property="og:title" content="PDF2Gyazo - PDFからGyazoに変換！" />
+    <meta name="description" content="PDF2Gyazoは、PDFから画像,Gyazoに変換するWebアプリケーションです。">
+    <meta property="og:title" content="PDF2Gyazo - PDFから画像,Gyazoに変換！" />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="PDF2Gyazoは、PDFからGyazoに変換するWebアプリケーションです。" />
+    <meta property="og:description" content="PDF2Gyazoは、PDFから画像,Gyazoに変換するWebアプリケーションです。" />
     <meta property="og:url" content="https://pdf2gyazo.azurewebsites.net/" />
-    <meta property="og:site_name" content="PDF2Gyazo - PDFからGyazoに変換！" />
+    <meta property="og:site_name" content="PDF2Gyazo - PDFから画像,Gyazoに変換！" />
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
@@ -21,6 +21,8 @@
 
     <script src="./build/main.js"></script>
     <script src="./build/0.js"></script>
+    <!-- <script src="./build/1.js"></script>
+    <script src="./build/2.js"></script> -->
     <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62998505-10"></script>
@@ -40,14 +42,14 @@
         }
 
         #dropTarget {
-            height: 1000px;
+            height: 800px;
             width: 100%;
             position: relative;
             background-color: rgba(255, 255, 255, 0.6);
         }
 
         .dropText {
-            height: 10%;
+            height: 40%;
             width: 100%;
             margin: auto;
             position: absolute;
@@ -68,36 +70,47 @@
 
 <body class="light-blue lighten-3">
     <div class="center container">
-        <h2 class="grey-text text-lighten-5">PDFからGyazoに変換</h2>
+        <h2 class="grey-text text-lighten-5">PDFから画像,Gyazoに変換</h2>
         <div class="imgTable">
-            <!-- <div class="row">
-                
-                            </div> -->
             <table id="imageTable">
             </table>
         </div>
         <div id="dropTarget">
-            <p class="flow-text dropText">ここにPDFをドラッグ&ドロップ</p>
+            <div class="dropText">
+                <div id="loading" style="visibility:hidden;">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="description">
+                    <p class="flow-text">ここにPDFを</p>
+                    <p class="flow-text">ドラッグ&ドロップ</p>
+                    <p class="flow-text">又はファイルを選択</p>
+                    <div class="file-field input-field" style="margin-left:45%">
+                        <div class="btn">
+                            <span>File</span>
+                            <input id="files" type="file">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="flow-text blue-grey-text text-darken-4">
             <h3>
                 特徴
             </h3>
-            <p>jsで処理するため、サーバーにPDFファイルを送信しません。</p>
+            <p>jsで処理するため、PDFファイルを送信しません。</p>
             <p>ブラウザのGyazoアカウントに保存されます。</p>
-            <hr>
-            <h3>
-                今後のアップデート
-            </h3>
-            <p>ファイル選択ダイアログの対応</p>
-            <p>リンクのタイムアウト対応(現在30秒)</p>
-        </div>
-        <div class="imgTable">
-            <!-- <div class="row">
-
-            </div> -->
-            <table id="imageTable">
-            </table>
         </div>
     </div>
     <footer class="page-footer light-blue lighten-1">
