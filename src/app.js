@@ -64,7 +64,11 @@ class PDF2Gyazo{
 
 document.addEventListener("DOMContentLoaded", () => {
     let table = document.getElementById('imageTable');
+    let loading = document.getElementById('loading');
+    let description = document.getElementById('description');
     dragDrop('#dropTarget', async(files) => {
+        loading.style.visibility = 'visible';
+        description.style.display = 'none';
         let filesimages =files.map(async(file) => {
                 let pdf2gyazo = new PDF2Gyazo(file);
                 return await pdf2gyazo.init();
@@ -75,6 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById('files').addEventListener('change', (e)=>{
+        loading.style.visibility = 'visible';
+        description.style.display = 'none';
+
         const files = Array.from(e.target.files);
         let filesimages =files.map(async(file) => {
         let pdf2gyazo = new PDF2Gyazo(file);
@@ -135,4 +142,3 @@ document.addEventListener("DOMContentLoaded", () => {
         elDrop.remove();
     }
 });
-

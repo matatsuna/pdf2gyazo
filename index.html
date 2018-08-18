@@ -77,13 +77,30 @@
         </div>
         <div id="dropTarget">
             <div class="dropText">
-                <p class="flow-text">ここにPDFを</p>
-                <p class="flow-text">ドラッグ&ドロップ</p>
-                <p class="flow-text">又はファイルを選択</p>
-                <div class="file-field input-field" style="margin-left:45%">
-                    <div class="btn">
-                        <span>File</span>
-                        <input id="files" type="file">
+                <div id="loading" style="visibility:hidden;">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="description">
+                    <p class="flow-text">ここにPDFを</p>
+                    <p class="flow-text">ドラッグ&ドロップ</p>
+                    <p class="flow-text">又はファイルを選択</p>
+                    <div class="file-field input-field" style="margin-left:45%">
+                        <div class="btn">
+                            <span>File</span>
+                            <input id="files" type="file">
+                        </div>
                     </div>
                 </div>
             </div>
