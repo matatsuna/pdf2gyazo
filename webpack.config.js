@@ -1,14 +1,15 @@
 const path = require('path');
 
 module.exports = {
-  mode:'production',
+  mode: 'production',
   entry: {
     'main': ['babel-polyfill', './src/app.js'],
     'pdf.worker': './node_modules/pdfjs-dist/build/pdf.worker.entry'
   },
   output: {
     path: path.join(__dirname, '/build'),
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: "./"
   },
   module: {
     rules: [
