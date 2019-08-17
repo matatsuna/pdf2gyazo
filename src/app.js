@@ -1,7 +1,7 @@
 import pdfjsLib from 'pdfjs-dist';
 import dragDrop from 'drag-drop';
 import postToGyazo from './postToGyazo';
-pdfjsLib.GlobalWorkerOptions.workerSrc = '../../build/pdf.worker.js';
+pdfjsLib.GlobalWorkerOptions.workerSrc = './../../build/pdf.worker.js';
 
 const clientId = '6ceabccbec3aac2dabf990b7ee9549b0cb00d0e280463ade8024d5870efc31c9';
 const options = { clientId: clientId };
@@ -9,8 +9,8 @@ const options = { clientId: clientId };
 // http://mozilla.github.io/pdf.js/examples/index.html#interactive-examples
 // https://github.com/mozilla/pdf.js/blob/master/examples/node/pdf2png/pdf2png.js
 
-class PDF2Gyazo{
-    constructor(file){
+class PDF2Gyazo {
+    constructor(file) {
         this.file = file;
         if (file.type !== 'application/pdf') {
             console.error('pdfファイルではありません。');
@@ -18,11 +18,11 @@ class PDF2Gyazo{
         }
     }
 
-    async init(){
+    async init() {
         let binary = await this.fileLoad(this.file);
         let pages = await this.binaryLoad(binary);
         let promisechuild = [];
-        for(let i =1;i<=pages.numPages;i++){
+        for (let i = 1; i <= pages.numPages; i++) {
             let page = await pages.getPage(i);
             promisechuild.push(this.pageRnder(page));
         }
@@ -30,22 +30,22 @@ class PDF2Gyazo{
         return images;
     }
 
-    async fileLoad(file){
-        return new Promise((resolve)=>{
+    async fileLoad(file) {
+        return new Promise((resolve) => {
             const reader = new FileReader();
-            reader.onload = (e)=>{
+            reader.onload = (e) => {
                 resolve(e.target.result);
             };
             reader.readAsArrayBuffer(file);
         });
     }
 
-    async binaryLoad(binary){
+    async binaryLoad(binary) {
         const uint8array = new Uint8Array(binary);
         return await pdfjsLib.getDocument(uint8array);
     }
 
-    async pageRnder(page){
+    async pageRnder(page) {
         const viewport = page.getViewport(1.0);
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
@@ -66,29 +66,29 @@ document.addEventListener("DOMContentLoaded", () => {
     let table = document.getElementById('imageTable');
     let loading = document.getElementById('loading');
     let description = document.getElementById('description');
-    dragDrop('#dropTarget', async(files) => {
+    dragDrop('#dropTarget', async (files) => {
         loading.style.visibility = 'visible';
         description.style.display = 'none';
-        let filesimages =files.map(async(file) => {
-                let pdf2gyazo = new PDF2Gyazo(file);
-                return await pdf2gyazo.init();
+        let filesimages = files.map(async (file) => {
+            let pdf2gyazo = new PDF2Gyazo(file);
+            return await pdf2gyazo.init();
         });
-        Promise.all(filesimages).then((_filesimages)=>{
-            _filesimages.map((fileimages)=>fileimages.map((image)=>addImage(image)));
+        Promise.all(filesimages).then((_filesimages) => {
+            _filesimages.map((fileimages) => fileimages.map((image) => addImage(image)));
         });
     });
 
-    document.getElementById('files').addEventListener('change', (e)=>{
+    document.getElementById('files').addEventListener('change', (e) => {
         loading.style.visibility = 'visible';
         description.style.display = 'none';
 
         const files = Array.from(e.target.files);
-        let filesimages =files.map(async(file) => {
-        let pdf2gyazo = new PDF2Gyazo(file);
+        let filesimages = files.map(async (file) => {
+            let pdf2gyazo = new PDF2Gyazo(file);
             return await pdf2gyazo.init();
         });
-        Promise.all(filesimages).then((_filesimages)=>{
-            _filesimages.map((fileimages)=>fileimages.map((image)=>addImage(image)));
+        Promise.all(filesimages).then((_filesimages) => {
+            _filesimages.map((fileimages) => fileimages.map((image) => addImage(image)));
         });
     });
 
@@ -98,15 +98,15 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
     });
 
-    elDrop.addEventListener('drop',  (event)=> {
+    elDrop.addEventListener('drop', (event) => {
         elDrop.style.backgroundColor = "rgba(255, 255, 255, 0.6)";
         event.preventDefault();
     });
-    elDrop.addEventListener('dragleave', (event)=> {
+    elDrop.addEventListener('dragleave', (event) => {
         elDrop.style.backgroundColor = "rgba(255, 255, 255, 0.6)";
         event.preventDefault();
     });
-    function addImage (image){
+    function addImage(image) {
         let tr = document.createElement('tr');
         let imgTd = document.createElement('td');
         let urlTd = document.createElement('td');
@@ -121,8 +121,8 @@ document.addEventListener("DOMContentLoaded", () => {
         a.classList.add("waves-effect");
         a.classList.add("waves-light");
         a.classList.add("white-text");
-        a.addEventListener('click',async()=>{
-            if(a.innerText == 'OPEN'){
+        a.addEventListener('click', async () => {
+            if (a.innerText == 'OPEN') {
                 return;
             }
             let data = {
