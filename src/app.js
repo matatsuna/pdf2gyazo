@@ -46,7 +46,7 @@ class PDF2Gyazo {
     }
 
     async pageRnder(page) {
-        const viewport = page.getViewport({ scale: 1.0, rotate: 1.0 });
+        const viewport = page.getViewport({ scale: 2.0, rotate: 1.0 });
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
         canvas.height = viewport.height;
