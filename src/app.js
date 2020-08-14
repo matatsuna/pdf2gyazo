@@ -42,11 +42,11 @@ class PDF2Gyazo {
 
     async binaryLoad(binary) {
         const uint8array = new Uint8Array(binary);
-        return await pdfjsLib.getDocument(uint8array);
+        return await pdfjsLib.getDocument(uint8array).promise;
     }
 
     async pageRnder(page) {
-        const viewport = page.getViewport(1.0);
+        const viewport = page.getViewport({ scale: 1.0, rotate: 1.0 });
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
         canvas.height = viewport.height;
@@ -56,7 +56,7 @@ class PDF2Gyazo {
             canvasContext: context,
             viewport: viewport
         };
-        await page.render(renderContext);
+        await page.render(renderContext).promise;
         return canvas.toDataURL("image/jpeg");
     }
 }
