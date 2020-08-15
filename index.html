@@ -13,11 +13,9 @@
     <meta property="og:site_name" content="PDF2Gyazo - PDFから画像,Gyazoに変換！" />
 
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
-    <!-- <link rel="icon" href="./favicon.ico" sizes="32x32"> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script src="./build/main.js"></script>
     <script src="./build/0.js"></script>
@@ -72,9 +70,33 @@
 <body class="light-blue lighten-3">
     <div class="center container">
         <h2 class="grey-text text-lighten-5">PDFから画像,Gyazoに変換</h2>
-        <div class="imgTable">
-            <table id="imageTable">
+        <div class="imgTable" style="width:100%;">
+            <table id="imageTable" style="width:100%;">
             </table>
+        </div>
+        <div class="row" id="lengthParameter">
+            <div class="input-field col s5">
+                <select id="rowLength">
+                    <option value="1" selected>列/横/row 1</option>
+                    <option value="2">列/横/row 2</option>
+                    <option value="3">列/横/row 3</option>
+                </select>
+                <label>row Length</label>
+            </div>
+            <div class="input-field col s2">
+                <h5>
+                    x
+                </h5>
+            </div>
+            <div class="input-field col s5">
+                <select id="lineLength">
+                    <option value="1" selected>行/縦/line 1</option>
+                    <option value="2">行/縦/line 2</option>
+                    <option value="3">行/縦/line 3</option>
+                </select>
+                <label>line Length</label>
+
+            </div>
         </div>
         <div id="dropTarget">
             <div class="dropText">
