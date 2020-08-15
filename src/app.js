@@ -46,7 +46,13 @@ class PDF2Gyazo {
 
     async binaryLoad(binary) {
         const uint8array = new Uint8Array(binary);
-        return await pdfjsLib.getDocument(uint8array).promise;
+        return await pdfjsLib.getDocument(
+            {
+                data: uint8array,
+                cMapUrl: "./cmaps/",
+                cMapPacked: true
+            }
+        ).promise;
     }
 
     async pageRnder(page) {
