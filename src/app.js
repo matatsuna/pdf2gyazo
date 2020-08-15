@@ -176,15 +176,50 @@ document.addEventListener("DOMContentLoaded", () => {
             if (a.innerText == 'OPEN') {
                 return;
             }
-            let data = {
-                imageData: image,
-                title: "PDF2Gyazo"
-            };
-            let url = await postToGyazo(data);
-            console.log(url);
-            a.setAttribute('target', '_blank');
-            a.setAttribute('href', url);
-            a.innerText = 'OPEN';
+
+            a.classList.add("disabled");
+            a.innerText = 'WAIT';
+
+            let img = new Image();
+            img.src = image;
+            img.onload = (async () => {
+
+                let compressedImage
+                // 容量の概算
+                // base64は約4/3に増えるので3/4する
+                let volumeMB = image.length / 1024 / 1024 * (3 / 4);
+                if (volumeMB > 1) {
+
+                    //ルート取ると削減する画素数が分かるが、反比例しないので0.5を足す(根拠なし)
+                    let volumeMBSqrt = Math.sqrt(volumeMB) + 0.5;
+                    let imgWidth = img.width * (1 / volumeMBSqrt);
+                    let imgHeight = img.height * (1 / volumeMBSqrt);
+                    console.log(img.width, imgWidth);
+                    console.log(img.height, imgHeight);
+
+                    let canvas = document.createElement("canvas");
+                    let ctx = canvas.getContext("2d");
+                    canvas.width = imgWidth;
+                    canvas.height = imgHeight;
+
+
+                    ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
+                    compressedImage = canvas.toDataURL("image/jpeg", 0.8);
+                } else {
+                    compressedImage = image
+                }
+                let data = {
+                    imageData: compressedImage,
+                    title: "PDF2Gyazo"
+                };
+                let url = await postToGyazo(data);
+                console.log(url);
+                a.setAttribute('target', '_blank');
+                a.setAttribute('href', url);
+                a.innerText = 'OPEN';
+                a.classList.remove("disabled");
+
+            });
         });
         urlTd.appendChild(h4);
         tr.appendChild(imgTd);
